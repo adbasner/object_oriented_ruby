@@ -17,6 +17,10 @@ end
 
 class Deck
   def initialize(input_options)
+    hash_length = input_options.length
+    hash_length.times do |index|
+      #make a new card instance and put in hash info
+    end
     # @questions = input_options    
   end
 
