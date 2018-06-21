@@ -21,14 +21,6 @@
 # end
 
 module VectorAdjustable
-  attr_writer :speed, :direction
-  attr_reader :speed, :direction
-
-  def initialize(input_options)
-    @speed = 0
-    @direction = 'north'
-  end
-
   def brake
     @speed = 0
   end
@@ -40,10 +32,19 @@ module VectorAdjustable
   def turn(new_direction)
     @direction = new_direction
   end
-
 end
 
-class Car 
+class Vector
+  attr_writer :speed, :direction
+  attr_reader :speed, :direction
+
+  def initialize(input_options)
+    @speed = 0
+    @direction = 'north'
+  end
+end
+
+class Car < Vector
   include VectorAdjustable
   attr_reader :fuel, :make, :model
 
@@ -59,9 +60,10 @@ class Car
   end
 end
 
-class Bike 
+class Bike < Vector
   include VectorAdjustable
   attr_reader :gear_speed, :type, :weight
+
   def initialize(input_options)
     super
     @gear_speed = input_options[:gear_speed]
@@ -74,6 +76,9 @@ class Bike
   end
 end
 
+#-------------------------------------------
+#Tests
+#-------------------------------------------
 p "---Car Object---"
 car1 = Car.new({:fuel => "gasoline", :make => "Ford", :model => "pinto"})
 car1.honk_horn
