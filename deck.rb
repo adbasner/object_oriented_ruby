@@ -6,30 +6,43 @@
 # 6. CHALLENGE: Change the interface with better prompts, ASCII art, etc. Be as creative as you'd like!
 
 class Card
-  def question
-    # code
-  end
+  attr_reader :question, :answer
 
-  def answer
-    # code
+  def initialize(question, answer)
+    @question = question
+    @answer = answer
   end
 end
 
 class Deck
+  attr_accessor :current_card, :remaining_cards 
+
   def initialize(input_options)
-    hash_length = input_options.length
-    hash_length.times do |index|
-      #make a new card instance and put in hash info
-    end
-    # @questions = input_options    
+    @input = input_options 
+    @card_number = 1
+    @remaining_cards = input_options.length
+    @current_card = 0
+    #make the deck of card instances by calling deck_array method
+    @deck = deck_array
   end
 
-  def remaining_cards
-    # code
-  end
+  def deck_array
+    #  make a new card instance and put in hash info
+    @deck_array = []
+    index = 0
 
+    @input.each do |key, value|
+      card_name = "card#{@card_number}"
+      card_name = Card.new(key, value)
+      @deck_array << card_name
+      @card_number += 1
+    end 
+
+    return @deck_array
+  end
+  
   def draw_card
-    # code
+    return @deck[current_card]
   end
 end
 
@@ -42,7 +55,7 @@ trivia_data = {
 deck = Deck.new(trivia_data) # deck is an instance of the Deck class
 
 while deck.remaining_cards > 0
-  card = deck.draw_card # card is an instance of the Card class
+  card = deck.draw_card 
   puts card.question
   user_answer = gets.chomp
   if user_answer.downcase == card.answer.downcase
@@ -50,4 +63,6 @@ while deck.remaining_cards > 0
   else
     puts "Incorrect!"
   end
+  deck.current_card += 1
+  deck.remaining_cards -= 1
 end
