@@ -19,23 +19,19 @@ class Deck
 
   def initialize(input_options)
     @input = input_options 
-    @card_number = 1
     @remaining_cards = input_options.length
     @current_card = 0
-    #make the deck of card instances by calling deck_array method
+    #make the deck of card and put them in an array by calling deck_array method
     @deck = deck_array
   end
 
   def deck_array
     #  make a new card instance and put in hash info
     @deck_array = []
-    index = 0
 
     @input.each do |key, value|
-      card_name = "card#{@card_number}"
-      card_name = Card.new(key, value)
-      @deck_array << card_name
-      @card_number += 1
+      card = Card.new(key, value)
+      @deck_array << card
     end 
 
     return @deck_array
