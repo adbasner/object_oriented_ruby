@@ -54,15 +54,22 @@ trivia_data = {
 
 deck = Deck.new(trivia_data) # deck is an instance of the Deck class
 
+correct_answers = 0
+
 while deck.remaining_cards > 0
   card = deck.draw_card 
   puts card.question
   user_answer = gets.chomp
   if user_answer.downcase == card.answer.downcase
     puts "Correct!"
+    correct_answers += 1
   else
     puts "Incorrect!"
   end
   deck.current_card += 1
   deck.remaining_cards -= 1
+  puts "*" * 20
 end
+
+puts "You got #{correct_answers} correct."
+
